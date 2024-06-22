@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:online_shop_project/core/error/Exception.dart';
 
 import 'package:online_shop_project/core/error/failure.dart';
-import 'package:online_shop_project/core/platform/ntework_info.dart';
+import 'package:online_shop_project/core/platform/network_info.dart';
 import 'package:online_shop_project/online_shop_feature/data/data_sources/product_local_data_source.dart';
 import 'package:online_shop_project/online_shop_feature/data/data_sources/product_remote_data_source.dart';
 

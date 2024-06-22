@@ -19,7 +19,7 @@ class GetSpecifyProducts extends UseCase<List<ProductEntity>, SpecifyProductsPar
 class SpecifyProductsParams extends Equatable {
   final String query;
 
-  const SpecifyProductsParams(this.query);
+  const SpecifyProductsParams({required this.query});
 
   @override
   List<Object?> get props => [query];
