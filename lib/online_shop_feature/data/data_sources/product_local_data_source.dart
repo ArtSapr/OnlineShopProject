@@ -4,7 +4,7 @@ import 'package:online_shop_project/online_shop_feature/data/models/product_mode
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class ProductLocalDataSource {
-  Future<List<ProductModel>> getLastProductsAtTheBagFromCache();
+  Future<List<ProductModel>> getLastProductsFromCache();
 
   Future<void> productsToCache(List<ProductModel> products);
 }
@@ -17,7 +17,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   ProductLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<List<ProductModel>> getLastProductsAtTheBagFromCache() {
+  Future<List<ProductModel>> getLastProductsFromCache() {
     final jsonProductsList =
         sharedPreferences.getStringList(CACHED_PRODUCTS_LIST);
     if (jsonProductsList!.isNotEmpty) {
