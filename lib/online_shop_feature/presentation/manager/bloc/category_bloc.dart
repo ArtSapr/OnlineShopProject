@@ -11,7 +11,7 @@ const CACHED_FAILURE_MESSAGE = 'Cache failure';
 class ProductCategoryBloc extends Bloc<ProductCategoryEvent, ProductCategoryState> {
   final GetSpecifyProducts categoryProduct;
 
-  ProductCategoryBloc({required this.categoryProduct}) : super(ProductAllCategories()) {
+  ProductCategoryBloc({required this.categoryProduct}) : super(ProductEmpty()) {
     on<CategoryProducts>(_onEvent);
   }
 
