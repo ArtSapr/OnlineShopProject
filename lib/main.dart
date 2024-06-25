@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop_project/common/app_colors.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/bloc/category_bloc.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/product_list_cubit/product_list_cubit.dart';
 import 'locator_service.dart' as di;
@@ -19,15 +20,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<ProductListCubit>(create: (context) => sl<ProductListCubit>()),
+        BlocProvider<ProductListCubit>(create: (context) => sl<ProductListCubit>()..loadProduct()),
         BlocProvider<ProductCategoryBloc>(create: (context) => sl<ProductCategoryBloc>()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(
-          backgroundColor: Colors.black,
-          scaffoldBackgroundColor: Colors.grey,
+          backgroundColor: AppColors.mainBackground,
+          scaffoldBackgroundColor: AppColors.mainBackground,
         ),
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }

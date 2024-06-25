@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
-  final int id;
+  final num id;
   final String title;
-  final double price;
+  final num price;
   final String description;
   final String category;
   final String image;
@@ -25,8 +25,8 @@ class ProductEntity extends Equatable {
 }
 
 class RatingEntity {
-  final double rate;
-  final int count;
+  final num rate;
+  final num count;
 
   RatingEntity({required this.rate, required this.count});
 }

@@ -22,13 +22,13 @@ class ProductModel extends ProductEntity {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'],
+      id: json['id'] as num,
       title: json['title'],
-      price: json['price'],
+      price: json['price'] as num,
       description: json['description'],
       category: json['category'],
       image: json['image'],
-      rating: json['rating'] != null ? RatingModel.fromJson(json['rating']) : null,
+      rating: json['rating'] != null ? RatingModel.fromJson(json['rating']) as RatingEntity : null,
     );
   }
 

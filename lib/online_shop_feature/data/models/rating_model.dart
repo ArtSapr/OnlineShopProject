@@ -1,13 +1,18 @@
 import '../../domain/entities/product_entity.dart';
 
 class RatingModel extends RatingEntity {
-
-  RatingModel({rate, count}) : super(rate: rate, count: count);
+  RatingModel({
+    required rate,
+    required count,
+  }) : super(
+          rate: rate,
+          count: count,
+        );
 
   factory RatingModel.fromJson(Map<String, dynamic> json) {
     return RatingModel(
-      rate: json['rate'],
-      count: json['count'],
+      rate: json['rate'] as num,
+      count: json['count'] as num,
     );
   }
 
@@ -17,5 +22,4 @@ class RatingModel extends RatingEntity {
       'count': count,
     };
   }
-
 }
