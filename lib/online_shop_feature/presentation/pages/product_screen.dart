@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/product_type_dialog.dart';
 import '../widgets/product_list_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,14 +16,33 @@ class HomePage extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.layers,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ProductTypeDialog();
+              },
+            );
+          },
+        ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart, color: Colors.black,),
+            icon: const Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              ProductTypeDialog();
+            },
           ),
         ],
       ),
-      body:  ProductList(),
+      body: const ProductList(),
     );
   }
 }
