@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,9 @@ import 'package:online_shop_project/online_shop_feature/presentation/manager/pro
 import 'package:online_shop_project/online_shop_feature/presentation/manager/product_list_cubit/product_list_state.dart';
 
 class ProductList extends StatelessWidget {
-  const ProductList({super.key});
+  final String category;
+
+  const ProductList(this.category, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,11 @@ class ProductList extends StatelessWidget {
       if (state is ProductLoading) {
         return _loadingIndicator();
       } else if (state is ProductLoaded) {
-        products = state.productsList;
+        for (var product in state.productsList) {
+          if(product.category.toLowerCase() == category.toLowerCase() || category == 'All') {
+            products.add(product);
+          }
+        }
       }
       return GridView.builder(
         padding: const EdgeInsets.all(8),
@@ -32,55 +40,55 @@ class ProductList extends StatelessWidget {
               // Действие при нажатии на товар (если нужно)
             },
             child: Card(
-              color: Colors.white,
-              elevation: 2.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Image.network(
-                          products[index].image,
-                          fit: BoxFit.scaleDown,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                    color: Colors.white,
+                    elevation: 2.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(
-                          child: Text(
-                            products[index].title,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Image.network(
+                                products[index].image,
+                                fit: BoxFit.scaleDown,
+                              ),
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Container(
-                          child: Text(
-                            '${products[index].price}\$',
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  products[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  '${products[index].price}\$',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
           );
         },
         itemCount: products.length,

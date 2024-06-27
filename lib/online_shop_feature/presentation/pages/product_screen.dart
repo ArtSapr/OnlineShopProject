@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/product_type_dialog.dart';
+import '../widgets/category_dialog.dart';
 import '../widgets/product_list_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ProductScreenPage extends StatefulWidget {
+  const ProductScreenPage({super.key});
+
+  @override
+  State<ProductScreenPage> createState() => _ProductScreenPageState();
+}
+
+class _ProductScreenPageState extends State<ProductScreenPage> {
+
+  String _selectedCategory = 'All'; // Текущая категория
+
+  void _updateCategory(String newCategory) {
+    setState(() {
+      _selectedCategory = newCategory;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade400,
@@ -25,7 +40,10 @@ class HomePage extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return ProductTypeDialog();
+                return CategoryDialog(
+                  initialCategory: _selectedCategory,
+                  onCategorySelected: _updateCategory,
+                );
               },
             );
           },
@@ -36,13 +54,11 @@ class HomePage extends StatelessWidget {
               Icons.shopping_cart,
               color: Colors.black,
             ),
-            onPressed: () {
-              ProductTypeDialog();
-            },
+            onPressed: () {},
           ),
         ],
       ),
-      body: const ProductList(),
+      body: ProductList(_selectedCategory),
     );
   }
 }
