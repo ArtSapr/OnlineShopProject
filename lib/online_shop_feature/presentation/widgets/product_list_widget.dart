@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop_project/online_shop_feature/domain/entities/product_entity.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/product_list_cubit/product_list_cubit.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/product_list_cubit/product_list_state.dart';
+import 'package:online_shop_project/online_shop_feature/presentation/widgets/product_detail_sheet_dart.dart';
 
 class ProductList extends StatelessWidget {
   final String category;
@@ -37,7 +38,7 @@ class ProductList extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              // Действие при нажатии на товар (если нужно)
+              _showProductDetails(context, products[index]);
             },
             child: Card(
                     color: Colors.white,
@@ -111,6 +112,26 @@ class ProductList extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showProductDetails(BuildContext context, ProductEntity product) {
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      clipBehavior: Clip.antiAlias,
+      builder: (BuildContext context) {
+        return DraggableScrollableSheet(
+          expand: false,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: ProductDetailSheet(product: product),
+            );
+          },
+        );
+      },
     );
   }
 }

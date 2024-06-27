@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/category_dialog.dart';
+import '../widgets/category_dialog_widget.dart';
 import '../widgets/product_list_widget.dart';
 
 class ProductScreenPage extends StatefulWidget {
