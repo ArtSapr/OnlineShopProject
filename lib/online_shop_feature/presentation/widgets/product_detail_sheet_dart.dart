@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../domain/entities/product_entity.dart';
+import '../pages/cart_screen.dart';
 
 class ProductDetailSheet extends StatelessWidget {
   final ProductEntity product;
@@ -70,15 +71,7 @@ class ProductDetailSheet extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              //_ratingStars(product.rating.rate),
-              Text(
-                'Here should be rating',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              _ratingStars(product.rating.rate),
             ],
           ),
           const SizedBox(height: 16.0),
@@ -94,7 +87,6 @@ class ProductDetailSheet extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              //_ratingStars(product.rating.rate),
               Text(
                 '${product.price}\$',
                 style: const TextStyle(
@@ -119,7 +111,6 @@ class ProductDetailSheet extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              //_ratingStars(product.rating.rate),
               Text(
                 product.description,
                 style: const TextStyle(
@@ -144,7 +135,10 @@ class ProductDetailSheet extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreenPage()),
+                );
               },
               child: Row(
                 children: [
@@ -170,16 +164,30 @@ class ProductDetailSheet extends StatelessWidget {
     );
   }
 
-  List<Widget> _ratingStars(num rating) {
-    if (rating > 4.75) {
-      return [
-        Icon(Icons.star),
-        Icon(Icons.star),
-        Icon(Icons.star),
-        Icon(Icons.star),
-        Icon(Icons.star)
-      ];
-    } else
-      return [];
+  Widget _ratingStars(num rating) {
+    List<Widget> icons = [];
+    for (num i = rating; i > 0.75; i--) {
+      icons.add(Icon(
+        Icons.star,
+        color: Colors.black,
+      ));
+      rating--;
+    }
+    if (rating > 0.25) {
+      icons.add(Icon(
+        Icons.star_half,
+        color: Colors.black,
+      ));
+    }
+    while (icons.length < 5) {
+      icons.add(Icon(
+        Icons.star_border,
+        color: Colors.black,
+      ));
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: icons,
+    );
   }
 }

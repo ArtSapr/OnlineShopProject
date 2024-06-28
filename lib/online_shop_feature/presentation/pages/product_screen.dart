@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/category_dialog_widget.dart';
 import '../widgets/product_list_widget.dart';
+import 'cart_screen.dart';
 
 class ProductScreenPage extends StatefulWidget {
   const ProductScreenPage({super.key});
@@ -54,7 +55,12 @@ class _ProductScreenPageState extends State<ProductScreenPage> {
               Icons.shopping_cart,
               color: Colors.black,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartScreenPage()),
+              );
+            },
           ),
         ],
       ),

@@ -50,23 +50,23 @@ class _CategoryDialogState extends State<CategoryDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _categoryChanger(textCategory: ALL, category: _tempSelectedCategory),
+          _categoriesLayout(textCategory: ALL, category: _tempSelectedCategory),
           const Divider(
             height: 0,
           ),
-          _categoryChanger(textCategory: MENS_CLOTHING, category: _tempSelectedCategory),
+          _categoriesLayout(textCategory: MENS_CLOTHING, category: _tempSelectedCategory),
           const Divider(
             height: 0,
           ),
-          _categoryChanger(textCategory: JEWELERY, category: _tempSelectedCategory),
+          _categoriesLayout(textCategory: JEWELERY, category: _tempSelectedCategory),
           const Divider(
             height: 0,
           ),
-          _categoryChanger(textCategory: ELECTRONICS, category: _tempSelectedCategory),
+          _categoriesLayout(textCategory: ELECTRONICS, category: _tempSelectedCategory),
           const Divider(
             height: 0,
           ),
-          _categoryChanger(textCategory: WOMENS_CLOTHING, category: _tempSelectedCategory),
+          _categoriesLayout(textCategory: WOMENS_CLOTHING, category: _tempSelectedCategory),
           const Divider(
             height: 0,
           ),
@@ -96,7 +96,7 @@ class _CategoryDialogState extends State<CategoryDialog> {
       ],
     );
   }
-  _categoryChanger({required String textCategory, required String category}) {
+  _categoriesLayout({required String textCategory, required String category}) {
     return Row(
       children: [
         Expanded(
