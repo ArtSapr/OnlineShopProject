@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:provider/provider.dart';
 import '../../domain/entities/product_entity.dart';
+import '../manager/provider/cart_list_provider.dart';
 import '../pages/cart_screen.dart';
 
 class ProductDetailSheet extends StatelessWidget {
@@ -12,6 +13,8 @@ class ProductDetailSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartProducts = Provider.of<CartListProvider>(context);
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -125,39 +128,7 @@ class ProductDetailSheet extends StatelessWidget {
             height: 16,
           ),
           Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                minimumSize: Size(200, 50),
-                side: BorderSide(
-                  color: Colors.black,
-                  width: 1.5,
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CartScreenPage()),
-                );
-              },
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'GO TO CART',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.add_shopping_cart,
-                    color: Colors.black,
-                  )
-                ],
-              ),
-            ),
+            child: _buttonViewDetailSheet(cartProducts, product, context),
           ),
         ],
       ),
@@ -189,5 +160,76 @@ class ProductDetailSheet extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: icons,
     );
+  }
+
+  Widget _buttonViewDetailSheet(CartListProvider cartProducts,
+      ProductEntity product, BuildContext context) {
+    if (cartProducts.items.contains(product)) {
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          minimumSize: Size(200, 50),
+          side: BorderSide(
+            color: Colors.black,
+            width: 1.5,
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CartScreenPage()),
+          );
+        },
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'GO TO CART',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            )
+          ],
+        ),
+      );
+    } else {
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          minimumSize: Size(200, 50),
+          side: BorderSide(
+            color: Colors.black,
+            width: 1.5,
+          ),
+        ),
+        onPressed: () {
+          Provider.of<CartListProvider>(context, listen: false)
+              .addProduct(product);
+        },
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'ADD TO CART',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.add_shopping_cart,
+              color: Colors.black,
+            )
+          ],
+        ),
+      );
+    }
   }
 }

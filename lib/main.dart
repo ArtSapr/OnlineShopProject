@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop_project/common/app_colors.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/bloc/category_bloc.dart';
 import 'package:online_shop_project/online_shop_feature/presentation/manager/product_list_cubit/product_list_cubit.dart';
+import 'package:online_shop_project/online_shop_feature/presentation/manager/provider/cart_list_provider.dart';
+import 'package:provider/provider.dart';
 import 'locator_service.dart' as di;
 import 'locator_service.dart';
 import 'online_shop_feature/presentation/pages/product_screen.dart';
@@ -10,7 +12,12 @@ import 'online_shop_feature/presentation/pages/product_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartListProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
